@@ -1,0 +1,27 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    
+    
+    <declare-styleable name="PentagramBarView">
+        <attr name="measure_style" >
+            <enum name="MEASURE_WIDTH" value="1"></enum>
+            <enum name="MEASURE_HEIGHT" value="2"></enum>
+        </attr>
+        <attr name="max" format="float|reference|integer">
+        </attr>
+        <attr name="progress" format="float"></attr>
+        
+        <attr name="CrRatio" format="float"></attr>
+        <attr name="fillColor" format="reference|color"></attr>
+        <attr name="lineColor" format="reference|color"></attr>
+        <attr name="lineWidth" format="dimension|reference"></attr>
+    </declare-styleable>
+
+</resources>
