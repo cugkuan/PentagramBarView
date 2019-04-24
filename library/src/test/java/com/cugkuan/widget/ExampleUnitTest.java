@@ -1,4 +1,4 @@
-package com.cugkuan.editor.starview;
+package com.cugkuan.widget;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PentagramBarView">
+        <attr name="measure_style" >
+            <enum name="MEASURE_WIDTH" value="1"></enum>
+            <enum name="MEASURE_HEIGHT" value="2"></enum>
+        </attr>
+        <attr name="max" format="float|reference|integer">
+        </attr>
+        <attr name="progress" format="float"></attr>
+
+        <attr name="CrRatio" format="float"></attr>
+        <attr name="fillColor" format="reference|color"></attr>
+        <attr name="progressColor" format="reference|color"></attr>
+        <attr name="lineColor" format="reference|color"></attr>
+        <attr name="lineWidth" format="dimension|reference"></attr>
+    </declare-styleable>
+
+</resources>

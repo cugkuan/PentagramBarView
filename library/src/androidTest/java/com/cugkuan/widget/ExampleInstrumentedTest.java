@@ -1,6 +1,7 @@
-package com.cugkuan.editor.starview;
+package com.cugkuan.widget;
 
 import android.content.Context;
+
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
@@ -21,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.cugkuan.editor.starview", appContext.getPackageName());
+        assertEquals("com.cugkuan.widget.test", appContext.getPackageName());
     }
 }

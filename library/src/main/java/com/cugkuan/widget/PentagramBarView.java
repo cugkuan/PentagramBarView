@@ -1,4 +1,4 @@
-package com.cugkuan.editor.starview;
+package com.cugkuan.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -6,11 +6,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.support.annotation.IntDef;
-import android.support.annotation.MainThread;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -88,7 +89,9 @@ public class PentagramBarView extends View {
     /**
      * 五角星填充的颜色
      */
-    private int mFillColor = Color.BLACK;
+    private int mFillColor = Color.TRANSPARENT;
+
+    private int mProgressColor = Color.RED;
 
     /**
      * 内切圆与外接圆的最大比例值，不能大于这个比例值
@@ -132,7 +135,8 @@ public class PentagramBarView extends View {
 
         mStrokeWidth = a.getDimensionPixelSize(R.styleable.PentagramBarView_lineWidth, 2);
         mLineColor = a.getColor(R.styleable.PentagramBarView_lineColor, Color.RED);
-        mFillColor = a.getColor(R.styleable.PentagramBarView_fillColor, Color.YELLOW);
+        mFillColor = a.getColor(R.styleable.PentagramBarView_fillColor, Color.TRANSPARENT);
+        mProgressColor = a.getColor(R.styleable.PentagramBarView_progressColor,Color.RED);
 
         mPain = new Paint();
         mPain.setStrokeWidth(mStrokeWidth);
@@ -175,49 +179,42 @@ public class PentagramBarView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int height = 0;
         int width = 0;
-        if (mMeasureStyle == MEASURE_HEIGHT) {
-            switch (MeasureSpec.getMode(heightMeasureSpec)) {
-                case MeasureSpec.UNSPECIFIED:
-                case MeasureSpec.EXACTLY:
-                    height = MeasureSpec.getSize(heightMeasureSpec);
-                    break;
-            }
-            //为了屏幕有个可见的，代码删除了也没关系
-            if (height == 0) {
-                height = 40;
-            }
 
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+
+        if (mMeasureStyle == MEASURE_HEIGHT) {
+
+            if (heightMode == MeasureSpec.EXACTLY){
+                height = MeasureSpec.getSize(heightMeasureSpec);
+            }else {
+                height = getMinimumHeight();
+            }
             CR = height / (1 + Math.cos(Math.toRadians(36)));
             Cr = CR * mCrRatio;
-            switch (MeasureSpec.getMode(widthMeasureSpec)) {
-                case MeasureSpec.AT_MOST:
-                    width = (int) (Math.cos(Math.toRadians(18)) * CR * 2);
-                    break;
-                default:
-                    width = MeasureSpec.getSize(widthMeasureSpec);
-                    break;
-            }
-        } else {
-            switch (MeasureSpec.getMode(widthMeasureSpec)) {
-                case MeasureSpec.UNSPECIFIED:
-                case MeasureSpec.EXACTLY:
-                    width = MeasureSpec.getSize(widthMeasureSpec);
-                    break;
-            }
-            //为了屏幕有一个可见的，代码删除了也没关系
-            if (width == 0) {
-                width = 40;
+
+            if (widthMode == MeasureSpec.EXACTLY){
+                width = MeasureSpec.getSize(widthMeasureSpec);
+            }else {
+                width = (int) (Math.cos(Math.toRadians(18)) * CR * 2);
+                width = Math.max(width,getMinimumWidth());
             }
 
+        } else {
+
+            if (widthMode == MeasureSpec.EXACTLY){
+                width = MeasureSpec.getSize(widthMeasureSpec);
+            }else {
+                width = getMinimumWidth();
+            }
             CR = width / 2 / (Math.cos(Math.toRadians(18)));
             Cr = CR * mCrRatio;
-            switch (MeasureSpec.getMode(heightMeasureSpec)) {
-                case MeasureSpec.AT_MOST:
-                    height = (int) (CR + Math.cos(Math.toRadians(36)) * CR);
-                    break;
-                default:
-                    height = MeasureSpec.getSize(heightMeasureSpec);
-                    break;
+
+            if (heightMode == MeasureSpec.EXACTLY){
+                height = MeasureSpec.getSize(heightMeasureSpec);
+            }else {
+                height = (int) (CR + Math.cos(Math.toRadians(36)) * CR);
+                height = Math.max(height,getMinimumHeight());
             }
         }
         mPath = getPoints(CR, Cr);
@@ -229,11 +226,17 @@ public class PentagramBarView extends View {
         super.onDraw(canvas);
         //绘制五角星的外
         canvas.drawPath(mPath, mPain);
-        canvas.save();
         //比例的绘制填充
+        mPain2.setColor(mFillColor);
+        canvas.drawPath(mPath,mPain2);
+        canvas.save();
+
+        mPain2.setColor(mProgressColor);
         int right = (int) (mProgress / mMax * getMeasuredWidth());
         canvas.clipRect(0, 0, right, getMeasuredHeight());
         canvas.drawPath(mPath, mPain2);
+
+
     }
 
     /**
