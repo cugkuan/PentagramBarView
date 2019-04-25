@@ -5,11 +5,11 @@
             <enum name="WIDTH" value="1"></enum>
             <enum name="HEIGHT" value="2"></enum>
         </attr>
-        <attr name="max" format="float|reference|integer">
+        <attr name="pMax" format="float|reference|integer">
         </attr>
-        <attr name="progress" format="float"></attr>
+        <attr name="pProgress" format="float|reference|integer"></attr>
 
-        <attr name="CrRatio" format="float"></attr>
+        <attr name="CrRatio" format="float|reference"></attr>
         <attr name="fillColor" format="reference|color"></attr>
         <attr name="progressColor" format="reference|color"></attr>
         <attr name="lineColor" format="reference|color"></attr>

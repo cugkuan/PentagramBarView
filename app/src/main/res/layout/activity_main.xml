@@ -19,8 +19,8 @@
             android:layout_width="wrap_content"
             app:measure_style="HEIGHT"
             app:fillColor="@color/colorAccent"
-            app:max="100"
-            app:progress="10"
+            app:pMax="100"
+            app:pProgress="10"
             app:lineColor="@android:color/black"
             app:lineWidth="5dp"
             app:progressColor="@color/colorPrimaryDark"
@@ -31,8 +31,21 @@
             android:layout_width="wrap_content"
             app:measure_style="HEIGHT"
             app:fillColor="@color/colorAccent"
-            app:max="100"
-            app:progress="20"
+            app:pMax="100"
+            app:pProgress="20"
+            app:lineColor="@android:color/black"
+            app:lineWidth="5dp"
+            app:progressColor="@color/colorPrimaryDark"
+            android:layout_height="50dp" />
+
+
+
+        <com.cugkuan.widget.PentagramBarView
+            android:layout_width="wrap_content"
+            app:measure_style="HEIGHT"
+            app:fillColor="@color/colorAccent"
+            app:pMax="100"
+            app:pProgress="30"
             app:lineColor="@android:color/black"
             app:lineWidth="5dp"
             app:progressColor="@color/colorPrimaryDark"
@@ -42,19 +55,8 @@
             android:layout_width="wrap_content"
             app:measure_style="HEIGHT"
             app:fillColor="@color/colorAccent"
-            app:max="100"
-            app:progress="30"
-            app:lineColor="@android:color/black"
-            app:lineWidth="5dp"
-            app:progressColor="@color/colorPrimaryDark"
-            android:layout_height="50dp" />
-
-        <com.cugkuan.widget.PentagramBarView
-            android:layout_width="wrap_content"
-            app:measure_style="HEIGHT"
-            app:fillColor="@color/colorAccent"
-            app:max="100"
-            app:progress="50"
+            app:pMax="100"
+            app:pProgress="50"
             app:lineColor="@android:color/black"
             app:lineWidth="5dp"
             app:progressColor="@color/colorPrimaryDark"
@@ -68,8 +70,8 @@
             android:paddingBottom="2dp"
             app:measure_style="WIDTH"
             app:fillColor="@color/colorAccent"
-            app:max="100"
-            app:progress="80"
+            app:pMax="100"
+            app:pProgress="80"
             app:lineColor="@android:color/black"
             app:lineWidth="5dp"
             app:progressColor="@color/colorPrimaryDark"
@@ -89,8 +91,8 @@
         <com.cugkuan.widget.PentagramBarView
             android:layout_width="20dp"
             app:measure_style="WIDTH"
-            app:max="5.0"
-            app:progress="3"
+            app:pMax="5.0"
+            app:pProgress="3"
             app:fillColor="@android:color/holo_green_dark"
             app:lineWidth="-1dp"
             android:layout_height="wrap_content" />

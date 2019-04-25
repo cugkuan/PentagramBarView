@@ -124,8 +124,8 @@ public class PentagramBarView extends View {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PentagramBarView);
         mMeasureStyle = a.getInt(R.styleable.PentagramBarView_measure_style, MEASURE_HEIGHT);
-        mMax = a.getFloat(R.styleable.PentagramBarView_max, 100);
-        mProgress = a.getFloat(R.styleable.PentagramBarView_progress, 50);
+        mMax = a.getFloat(R.styleable.PentagramBarView_pMax, 100);
+        mProgress = a.getFloat(R.styleable.PentagramBarView_pProgress, 50);
         if (mProgress >= mMax) {
             mProgress = mMax;
         }
