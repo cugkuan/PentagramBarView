@@ -1,5 +1,7 @@
 
 [![](https://jitpack.io/v/cugkuan/PentagramBarView.svg)](https://jitpack.io/#cugkuan/PentagramBarView)
+
+
 # PentagramBarView
 
 五角星进度条。
@@ -7,9 +9,17 @@
 在使用过程中，有什么问题，发邮件到 cugkuan@163.com
 
 # 使用
-## 添加依赖的地址为：
+## 添加依赖的地址
+
+**根据是否使用了AndroidX选择不同的依赖版本**
+
+如果使用AndroidX，那么
 ```
-implementation 'com.github.cugkuan:PentagramBarView:1.1'  
+implementation 'com.github.cugkuan:PentagramBarView:1.2'  
+```
+**没有使用AndroidX,那么**
+```
+implementation 'com.github.cugkuan:PentagramBarView:1.02'  
 ```
 
 ## 使用代码
