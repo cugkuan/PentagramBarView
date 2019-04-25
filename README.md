@@ -21,6 +21,6 @@
 |progressColor|五角星进度条填充颜色| |
 |lineColor|五角星线条颜色||
 |lineWidth|五角星线条的宽度|如果不显示线条，设置为0|
-|measure_style|WIDTH-以宽度为测量标准计算高度,HEIGHT-以高度为计算标准，计算宽度| |
+|measure_style|WIDTH:以宽度为测量标准计算高度。<br>HEIGHT:以高度为计算标准，计算宽度| |
 
 
