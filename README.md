@@ -1,10 +1,21 @@
+
+![](https://jitpack.io/v/cugkuan/PentagramBarView.svg)](https://jitpack.io/#cugkuan/PentagramBarView)
 # PentagramBarView
 
 五角星进度条。
 
-![image](image/WechatIMG1.png)
+## 使用方法
 
-# 使用方法
+
+````
+dependencies {
+	        implementation 'com.github.cugkuan:PentagramBarView:1.1'
+	}
+  
+```
+
+## demo效果
+![image](image/WechatIMG1.png)
 
 
 # 属性说明
