@@ -121,6 +121,10 @@ public class PentagramBarView extends View {
     }
 
     private void init(Context context, AttributeSet attrs) {
+        //给一个默认的宽度和高度
+        setMinimumHeight(20);
+        setMinimumWidth(25);
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PentagramBarView);
         mMeasureStyle = a.getInt(R.styleable.PentagramBarView_measure_style, MEASURE_HEIGHT);
         mMax = a.getFloat(R.styleable.PentagramBarView_max, 100);
