@@ -5,13 +5,9 @@
 五角星进度条。
 
 ## 使用方法
-
-
+添加依赖的地址为：
 ```
-dependencies {
-	        implementation 'com.github.cugkuan:PentagramBarView:1.1'
-	}
-  
+implementation 'com.github.cugkuan:PentagramBarView:1.1'  
 ```
 
 ## demo效果
