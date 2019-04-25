@@ -90,9 +90,9 @@
             android:layout_width="20dp"
             app:measure_style="WIDTH"
             app:max="5.0"
-            app:progress="3.0"
+            app:progress="3"
             app:fillColor="@android:color/holo_green_dark"
-            app:lineWidth="0dp"
+            app:lineWidth="-1dp"
             android:layout_height="wrap_content" />
 
         <TextView

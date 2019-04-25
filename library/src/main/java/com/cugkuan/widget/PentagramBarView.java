@@ -142,11 +142,13 @@ public class PentagramBarView extends View {
         mFillColor = a.getColor(R.styleable.PentagramBarView_fillColor, Color.TRANSPARENT);
         mProgressColor = a.getColor(R.styleable.PentagramBarView_progressColor, Color.RED);
 
-        mPain = new Paint();
-        mPain.setStrokeWidth(mStrokeWidth);
-        mPain.setColor(mLineColor);
-        mPain.setAntiAlias(true);
-        mPain.setStyle(Paint.Style.STROKE);
+        if (mStrokeWidth >0) {
+            mPain = new Paint();
+            mPain.setStrokeWidth(mStrokeWidth);
+            mPain.setColor(mLineColor);
+            mPain.setAntiAlias(true);
+            mPain.setStyle(Paint.Style.STROKE);
+        }
         mPain2 = new Paint();
         mPain2.setColor(mFillColor);
         mPain2.setStyle(Paint.Style.FILL);
@@ -159,6 +161,13 @@ public class PentagramBarView extends View {
 
     public void setProgress(float progress) {
         this.mProgress = progress;
+        if (mProgress > mMax){
+            mProgress = mMax;
+        }
+        if (mProgress< 0){
+            mProgress = 0;
+        }
+        invalidate();
     }
 
     public void setCrRatio(float ratio) {
@@ -177,6 +186,7 @@ public class PentagramBarView extends View {
      */
     public void setMeasureStyle(@Duration int measureStyle) {
         mMeasureStyle = measureStyle;
+        invalidate();
     }
 
     @Override
@@ -255,7 +265,9 @@ public class PentagramBarView extends View {
                 mStrokeWidth + getPaddingBottom());
         canvas.save();
         //绘制五角星的外
-        canvas.drawPath(mPath, mPain);
+        if (mPain != null) {
+            canvas.drawPath(mPath, mPain);
+        }
         //比例的绘制填充
         mPain2.setColor(mFillColor);
         canvas.drawPath(mPath, mPain2);
