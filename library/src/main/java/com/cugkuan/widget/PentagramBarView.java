@@ -23,6 +23,7 @@ import java.lang.annotation.RetentionPolicy;
  * 因此，如果一个五角星的高度确定，那么宽度需要进行计算；以便五角星能绘制完全
  * 同理，一个五角星的宽度确定，那么高度需要进行动态计算。
  * 所以在使用的使用，如果想要五角星能够恰好撑满，那么只需要指定一个宽度或高度就行了，其它需要进行计算。
+ * 五角星的外接圆确定了五角星的大小，内接圆确定了五角星胖瘦
  */
 public class PentagramBarView extends View {
 
@@ -47,11 +48,11 @@ public class PentagramBarView extends View {
     private Paint mPain;
     private Paint mPain2;
     /**
-     * 五角星的外接圆
+     * 五角星的外接圆半径
      */
     private double CR;
     /**
-     * 五角星的内接圆
+     * 五角星的内切圆半径，内切圆的半径，决定了五角星的胖瘦
      */
     private double Cr;
     /**
@@ -70,7 +71,6 @@ public class PentagramBarView extends View {
      * 默认的以宽度为测量标准
      */
     private int mMeasureStyle = MEASURE_HEIGHT;
-
 
     /**
      * 外接圆与内切圆的半径比例，决定了 五角星的胖瘦
@@ -136,7 +136,7 @@ public class PentagramBarView extends View {
         mStrokeWidth = a.getDimensionPixelSize(R.styleable.PentagramBarView_lineWidth, 2);
         mLineColor = a.getColor(R.styleable.PentagramBarView_lineColor, Color.RED);
         mFillColor = a.getColor(R.styleable.PentagramBarView_fillColor, Color.TRANSPARENT);
-        mProgressColor = a.getColor(R.styleable.PentagramBarView_progressColor,Color.RED);
+        mProgressColor = a.getColor(R.styleable.PentagramBarView_progressColor, Color.RED);
 
         mPain = new Paint();
         mPain.setStrokeWidth(mStrokeWidth);
@@ -184,59 +184,81 @@ public class PentagramBarView extends View {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 
         if (mMeasureStyle == MEASURE_HEIGHT) {
-
-            if (heightMode == MeasureSpec.EXACTLY){
+            if (heightMode == MeasureSpec.EXACTLY) {
                 height = MeasureSpec.getSize(heightMeasureSpec);
-            }else {
+            } else {
                 height = getMinimumHeight();
             }
-            CR = height / (1 + Math.cos(Math.toRadians(36)));
+            CR = getCRbyHeight(height);
             Cr = CR * mCrRatio;
 
-            if (widthMode == MeasureSpec.EXACTLY){
+            if (widthMode == MeasureSpec.EXACTLY) {
                 width = MeasureSpec.getSize(widthMeasureSpec);
-            }else {
-                width = (int) (Math.cos(Math.toRadians(18)) * CR * 2);
-                width = Math.max(width,getMinimumWidth());
+            } else {
+                width = (int) (Math.cos(Math.toRadians(18)) * CR * 2) + (mStrokeWidth << 1)
+                        + getPaddingLeft() + getPaddingRight();
+                width = Math.max(width, getMinimumWidth());
             }
 
         } else {
 
-            if (widthMode == MeasureSpec.EXACTLY){
+            if (widthMode == MeasureSpec.EXACTLY) {
                 width = MeasureSpec.getSize(widthMeasureSpec);
-            }else {
+            } else {
                 width = getMinimumWidth();
             }
-            CR = width / 2 / (Math.cos(Math.toRadians(18)));
+            CR = getCRbyWidth(width);
             Cr = CR * mCrRatio;
 
-            if (heightMode == MeasureSpec.EXACTLY){
+            if (heightMode == MeasureSpec.EXACTLY) {
                 height = MeasureSpec.getSize(heightMeasureSpec);
-            }else {
-                height = (int) (CR + Math.cos(Math.toRadians(36)) * CR);
-                height = Math.max(height,getMinimumHeight());
+            } else {
+                height = (int) (CR + Math.cos(Math.toRadians(36)) * CR) + (mStrokeWidth << 1)
+                        + getPaddingTop() + getPaddingBottom();
+                height = Math.max(height, getMinimumHeight());
             }
         }
         mPath = getPoints(CR, Cr);
         setMeasuredDimension(width, height);
     }
 
+    /**
+     * 根据给定的高度，计算五角星的的外接圆
+     *
+     * @param height
+     * @return
+     */
+    private double getCRbyHeight(int height) {
+        return (height - (mStrokeWidth << 1) - getPaddingTop() - getPaddingBottom()) / (1 + Math.cos(Math.toRadians(36)));
+    }
+
+    /**
+     * 根据宽度，计算五角星外接圆
+     *
+     * @param width
+     * @return
+     */
+    private double getCRbyWidth(int width) {
+        return (width - (mStrokeWidth << 1) - getPaddingRight() - getPaddingLeft()) / 2 / (Math.cos(Math.toRadians(18)));
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvas.translate(mStrokeWidth + getPaddingTop(),
+                mStrokeWidth + getPaddingBottom());
+        canvas.save();
         //绘制五角星的外
         canvas.drawPath(mPath, mPain);
         //比例的绘制填充
         mPain2.setColor(mFillColor);
-        canvas.drawPath(mPath,mPain2);
+        canvas.drawPath(mPath, mPain2);
         canvas.save();
 
         mPain2.setColor(mProgressColor);
         int right = (int) (mProgress / mMax * getMeasuredWidth());
         canvas.clipRect(0, 0, right, getMeasuredHeight());
         canvas.drawPath(mPath, mPain2);
-
-
     }
 
     /**

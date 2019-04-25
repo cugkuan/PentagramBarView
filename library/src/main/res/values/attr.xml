@@ -2,8 +2,8 @@
 <resources>
     <declare-styleable name="PentagramBarView">
         <attr name="measure_style" >
-            <enum name="MEASURE_WIDTH" value="1"></enum>
-            <enum name="MEASURE_HEIGHT" value="2"></enum>
+            <enum name="WIDTH" value="1"></enum>
+            <enum name="HEIGHT" value="2"></enum>
         </attr>
         <attr name="max" format="float|reference|integer">
         </attr>

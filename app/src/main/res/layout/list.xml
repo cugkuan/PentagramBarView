@@ -10,7 +10,7 @@
         android:layout_width="50dp"
         app:fillColor="#f6921e"
         app:lineColor="#f6921e"
-        app:measure_style="MEASURE_WIDTH"
+        app:measure_style="WIDTH"
         app:max="100"
         app:progress="60"
         android:layout_gravity="center"
