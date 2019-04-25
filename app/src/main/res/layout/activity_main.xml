@@ -32,7 +32,7 @@
             app:measure_style="HEIGHT"
             app:fillColor="@color/colorAccent"
             app:max="100"
-            app:progress="10"
+            app:progress="20"
             app:lineColor="@android:color/black"
             app:lineWidth="5dp"
             app:progressColor="@color/colorPrimaryDark"
@@ -43,7 +43,7 @@
             app:measure_style="HEIGHT"
             app:fillColor="@color/colorAccent"
             app:max="100"
-            app:progress="10"
+            app:progress="30"
             app:lineColor="@android:color/black"
             app:lineWidth="5dp"
             app:progressColor="@color/colorPrimaryDark"
@@ -54,7 +54,7 @@
             app:measure_style="HEIGHT"
             app:fillColor="@color/colorAccent"
             app:max="100"
-            app:progress="10"
+            app:progress="50"
             app:lineColor="@android:color/black"
             app:lineWidth="5dp"
             app:progressColor="@color/colorPrimaryDark"
@@ -62,11 +62,14 @@
 
         <com.cugkuan.widget.PentagramBarView
             android:layout_width="70dp"
-            android:padding="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:paddingLeft="7dp"
+            android:paddingBottom="2dp"
             app:measure_style="WIDTH"
             app:fillColor="@color/colorAccent"
             app:max="100"
-            app:progress="10"
+            app:progress="80"
             app:lineColor="@android:color/black"
             app:lineWidth="5dp"
             app:progressColor="@color/colorPrimaryDark"
@@ -76,6 +79,32 @@
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content">
+
+        <com.cugkuan.widget.PentagramBarView
+            android:layout_width="20dp"
+            app:measure_style="WIDTH"
+            app:max="5.0"
+            app:progress="3.0"
+            app:fillColor="@android:color/holo_green_dark"
+            app:lineWidth="0dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="10sp"
+            android:layout_gravity="center"
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"
+            android:text="评分3.0分"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 
     <ListView

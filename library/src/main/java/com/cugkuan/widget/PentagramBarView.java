@@ -181,12 +181,17 @@ public class PentagramBarView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
         int height = 0;
         int width = 0;
-
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-
+        //预处理五角星的处理模式
+        if (heightMode == MeasureSpec.EXACTLY && widthMode != MeasureSpec.EXACTLY){
+            mMeasureStyle = MEASURE_HEIGHT;
+        }else if (widthMode == MeasureSpec.EXACTLY && heightMode != MeasureSpec.EXACTLY){
+            mMeasureStyle = MEASURE_WIDTH;
+        }
         if (mMeasureStyle == MEASURE_HEIGHT) {
             if (heightMode == MeasureSpec.EXACTLY) {
                 height = MeasureSpec.getSize(heightMeasureSpec);
@@ -195,7 +200,6 @@ public class PentagramBarView extends View {
             }
             CR = getCRbyHeight(height);
             Cr = CR * mCrRatio;
-
             if (widthMode == MeasureSpec.EXACTLY) {
                 width = MeasureSpec.getSize(widthMeasureSpec);
             } else {
@@ -205,7 +209,6 @@ public class PentagramBarView extends View {
             }
 
         } else {
-
             if (widthMode == MeasureSpec.EXACTLY) {
                 width = MeasureSpec.getSize(widthMeasureSpec);
             } else {
@@ -213,7 +216,6 @@ public class PentagramBarView extends View {
             }
             CR = getCRbyWidth(width);
             Cr = CR * mCrRatio;
-
             if (heightMode == MeasureSpec.EXACTLY) {
                 height = MeasureSpec.getSize(heightMeasureSpec);
             } else {
@@ -260,7 +262,8 @@ public class PentagramBarView extends View {
         canvas.save();
 
         mPain2.setColor(mProgressColor);
-        int right = (int) (mProgress / mMax * getMeasuredWidth());
+        int right = (int) (mProgress / mMax *
+                (getMeasuredWidth() - (mStrokeWidth<<1) - getPaddingLeft() - getPaddingRight()));
         canvas.clipRect(0, 0, right, getMeasuredHeight());
         canvas.drawPath(mPath, mPain2);
     }
