@@ -1,5 +1,5 @@
 
-![](https://jitpack.io/v/cugkuan/PentagramBarView.svg)](https://jitpack.io/#cugkuan/PentagramBarView)
+[![](https://jitpack.io/v/cugkuan/PentagramBarView.svg)](https://jitpack.io/#cugkuan/PentagramBarView)
 # PentagramBarView
 
 五角星进度条。
@@ -7,7 +7,7 @@
 ## 使用方法
 
 
-````
+```
 dependencies {
 	        implementation 'com.github.cugkuan:PentagramBarView:1.1'
 	}
