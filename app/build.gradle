@@ -20,7 +20,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':library')
+
     implementation 'com.android.support:appcompat-v7:27.0.0'
     androidTestImplementation 'junit:junit:4.12'
+    implementation 'com.github.cugkuan:PentagramBarView:1.4'
+
 }
