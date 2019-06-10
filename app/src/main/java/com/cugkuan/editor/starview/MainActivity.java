@@ -6,17 +6,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.cugkuan.widget.PentagramBarDrawable;
 import com.cugkuan.widget.PentagramBarView;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private TextView tvTest;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ListView listView = findViewById(R.id.listView);
+
+
+        tvTest = findViewById(R.id.tv_test);
+
+       PentagramBarDrawable drawable = new PentagramBarDrawable(30).commit();
+
+       ScoreDrawable scoreDrawable = new ScoreDrawable(drawable);
+
+
+       tvTest.setCompoundDrawablesRelative(scoreDrawable,null,null,null);
+
+
 
         listView.setAdapter(new BaseAdapter() {
             @Override
