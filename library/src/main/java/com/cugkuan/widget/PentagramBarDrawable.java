@@ -150,13 +150,17 @@ public class PentagramBarDrawable extends Drawable {
         setBounds(0, 0, mWidth, mHeight);
 
         if (mStrokeWidth > 0) {
-            mPain = new Paint();
+            if (mPain == null){
+                mPain = new Paint();
+            }
             mPain.setStrokeWidth(mStrokeWidth);
             mPain.setColor(mLineColor);
             mPain.setAntiAlias(true);
             mPain.setStyle(Paint.Style.STROKE);
         }
-        mPain2 = new Paint();
+        if (mPain2 == null) {
+            mPain2 = new Paint();
+        }
         mPain2.setColor(mFillColor);
         mPain2.setStyle(Paint.Style.FILL);
         mPain2.setAntiAlias(true);
