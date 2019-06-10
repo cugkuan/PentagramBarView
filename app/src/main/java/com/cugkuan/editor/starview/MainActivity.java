@@ -1,5 +1,6 @@
 package com.cugkuan.editor.starview;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,7 +26,18 @@ public class MainActivity extends AppCompatActivity {
 
         tvTest = findViewById(R.id.tv_test);
 
-       PentagramBarDrawable drawable = new PentagramBarDrawable(30).commit();
+
+        PentagramBarDrawable.Options options = new PentagramBarDrawable.Options()
+                .setStrokeWidth(0)
+                .setFillColor(Color.WHITE)
+                .setProgressColor(Color.GREEN);
+
+
+       PentagramBarDrawable drawable = new PentagramBarDrawable(30)
+               .commit(options);
+
+       drawable.setMax(100);
+       drawable.setProgress(50);
 
        ScoreDrawable scoreDrawable = new ScoreDrawable(drawable);
 

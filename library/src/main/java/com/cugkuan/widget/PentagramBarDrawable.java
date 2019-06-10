@@ -89,42 +89,62 @@ public class PentagramBarDrawable extends Drawable {
         mWidth = (int) (Math.cos(Math.toRadians(18)) * CR * 2) + (mStrokeWidth << 1);
     }
 
-    public PentagramBarDrawable setProgress(float progress) {
+
+    public PentagramBarDrawable commit(Options options) {
+
+        setCrRatio(options.mCrRatio);
+        setStrokeWidth(options.mStrokeWidth);
+        setLineColor(options.mLineColor);
+        setProgressColor(options.mProgressColor);
+        setFillColor(options.mFillColor);
+
+        //计算
+        Cr = CR * mCrRatio;
+        mWidth = (int) (Math.cos(Math.toRadians(18)) * CR * 2) + (mStrokeWidth << 1);
+        mPath = getPoints(CR, Cr);
+        setBounds(0, 0, mWidth, mHeight);
+
+        mPain = options.mPain;
+        mPain2 = options.mPain2;
+
+
+
+        return this;
+    }
+
+
+    public void setProgress(float progress) {
         mProgress = progress;
-        return this;
     }
 
-    public PentagramBarDrawable setMax(float max) {
+    public void setMax(float max) {
         mMax = max;
-        return this;
     }
 
-    public PentagramBarDrawable setCrRatio(float ratio) {
+    public void setCrRatio(float ratio) {
+        if (ratio <= 0.0f) {
+            return;
+        }
         mCrRatio = ratio;
         if (mCrRatio >= MAX_RC) {
             mCrRatio = MAX_RC;
         }
-        return this;
     }
 
-    public PentagramBarDrawable setStrokeWidth(int strokeWidth) {
+    public void setStrokeWidth(int strokeWidth) {
         mStrokeWidth = strokeWidth;
-        return this;
     }
 
-    public PentagramBarDrawable setLineColor(int color) {
+    public void setLineColor(int color) {
         mLineColor = color;
-        return this;
     }
 
-    public PentagramBarDrawable setProgressColor(int progressColor) {
+    public void setProgressColor(int progressColor) {
         mProgressColor = progressColor;
-        return this;
     }
 
-    public PentagramBarDrawable setFillColor(int fillColor) {
+    public void setFillColor(int fillColor) {
         mFillColor = fillColor;
-        return this;
     }
 
     @Override
@@ -143,28 +163,16 @@ public class PentagramBarDrawable extends Drawable {
      * @return
      */
     public PentagramBarDrawable commit() {
-        Cr = CR * mCrRatio;
-        mWidth = (int) (Math.cos(Math.toRadians(18)) * CR * 2) + (mStrokeWidth << 1);
-        mPath = getPoints(CR, Cr);
 
-        setBounds(0, 0, mWidth, mHeight);
-
-        if (mStrokeWidth > 0) {
-            if (mPain == null){
-                mPain = new Paint();
-            }
-            mPain.setStrokeWidth(mStrokeWidth);
-            mPain.setColor(mLineColor);
-            mPain.setAntiAlias(true);
-            mPain.setStyle(Paint.Style.STROKE);
-        }
-        if (mPain2 == null) {
-            mPain2 = new Paint();
-        }
+        mPain = new Paint();
+        mPain.setStrokeWidth(mStrokeWidth);
+        mPain.setColor(mLineColor);
+        mPain.setAntiAlias(true);
+        mPain.setStyle(Paint.Style.STROKE);
+        mPain2 = new Paint();
         mPain2.setColor(mFillColor);
         mPain2.setStyle(Paint.Style.FILL);
         mPain2.setAntiAlias(true);
-
         return this;
     }
 
@@ -175,8 +183,8 @@ public class PentagramBarDrawable extends Drawable {
         canvas.save();
         canvas.translate(mStrokeWidth, mStrokeWidth);
 
-        //绘制五角星的外
-        if (mPain != null) {
+        //绘制五角星的外面的的线条
+        if (mStrokeWidth > 0) {
             canvas.drawPath(mPath, mPain);
         }
         //比例的绘制填充
@@ -240,5 +248,64 @@ public class PentagramBarDrawable extends Drawable {
         }
         path.close();
         return path;
+    }
+
+    public static class Options {
+
+
+        private float mCrRatio = 0.5f;
+        private int mStrokeWidth;
+        private int mLineColor;
+        private int mProgressColor;
+        private int mFillColor;
+
+        private Paint mPain;
+        private Paint mPain2;
+
+
+        public Options() {
+
+
+            mPain = new Paint();
+            mPain.setAntiAlias(true);
+            mPain.setStyle(Paint.Style.STROKE);
+
+
+            mPain2 = new Paint();
+            mPain2.setStyle(Paint.Style.FILL);
+            mPain2.setAntiAlias(true);
+
+        }
+
+
+        public Options setCrRatio(float ratio) {
+            mCrRatio = ratio;
+            return this;
+        }
+
+        public Options setStrokeWidth(int strokeWidth) {
+            mStrokeWidth = strokeWidth;
+            mPain.setStrokeWidth(mStrokeWidth);
+            return this;
+        }
+
+        public Options setLineColor(int color) {
+            mLineColor = color;
+            mPain.setColor(mLineColor);
+            return this;
+        }
+
+        public Options setProgressColor(int progressColor) {
+            mProgressColor = progressColor;
+            return this;
+        }
+
+        public Options setFillColor(int fillColor) {
+            mFillColor = fillColor;
+            mPain2.setColor(mFillColor);
+            return this;
+        }
+
+
     }
 }
